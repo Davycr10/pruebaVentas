@@ -1,0 +1,9 @@
+{
+  "appId": "com.inventario.interno",
+  "appName": "Inventario Interno",
+  "webDir": "dist",
+  "server": {
+    "url": "http://192.168.1.3:3000",
+    "cleartext": true
+  }
+}
