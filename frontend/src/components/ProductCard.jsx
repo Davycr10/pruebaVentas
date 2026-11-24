@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 
-export default function ProductCard({ product, onCart }) {
+export default function ProductCard({ product, onCart, featured = false }) {
   return (
-    <div className="product-card">
+    <div className={featured ? "product-card product-card-featured" : "product-card"}>
       {product.image_url ? (
         <div className="product-card-image">
           <img src={product.image_url} alt={product.name} loading="lazy" />
@@ -15,7 +15,14 @@ export default function ProductCard({ product, onCart }) {
         </div>
       )}
       <div className="product-card-body">
-        {product.category && <span className="product-card-category">{product.category}</span>}
+        <div className="product-card-meta">
+          {product.category && <span className="product-card-category">{product.category}</span>}
+          {featured && typeof product.sold === "number" && product.sold > 0 && (
+            <span className="featured-badge">
+              {product.sold} vendidos
+            </span>
+          )}
+        </div>
         <h3 className="product-card-title">{product.name}</h3>
         <p className="product-card-desc">{product.description || "Sin descripción"}</p>
         <p className="product-card-price">${Number(product.price).toFixed(2)}</p>

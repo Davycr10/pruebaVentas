@@ -424,6 +424,59 @@ button.btn-outline:hover {
   margin-top: auto;
 }
 
+/* ---------------- Secciones del catálogo ---------------- */
+.catalog-section {
+  margin-bottom: 24px;
+}
+
+.products-featured {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+/* ---------------- Tarjetas destacadas (premium) ---------------- */
+.product-card-featured {
+  border: 1px solid var(--primary);
+}
+
+.product-card-featured .product-card-image {
+  aspect-ratio: 3 / 2;
+}
+
+.product-card-featured:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(52, 131, 250, 0.18);
+}
+
+.product-card-featured .product-card-title {
+  font-size: 17px;
+}
+
+.product-card-featured .product-card-price {
+  font-size: 24px;
+}
+
+.product-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.featured-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(90deg, var(--primary), var(--primary-hover));
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  padding: 5px 11px;
+  border-radius: 999px;
+}
+
 /* ---------------- Filtros del catálogo ---------------- */
 .catalog-filters {
   display: flex;

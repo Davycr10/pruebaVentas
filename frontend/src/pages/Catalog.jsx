@@ -144,24 +144,26 @@ export default function Catalog({ searchQuery }) {
         </p>
       )}
       {bestSellers.length > 0 && (
-        <>
-          <h2 className="section-title">Destacados</h2>
-          <div className="products">
+        <section className="catalog-section">
+          <h2 className="section-title">Destacados (más vendidos)</h2>
+          <div className="products products-featured">
             {bestSellers.map((product) => (
-              <ProductCard key={product.id} product={product} onCart={addToCart} />
+              <ProductCard key={product.id} product={product} onCart={addToCart} featured />
             ))}
           </div>
-        </>
+        </section>
       )}
-      <h2 className="section-title">Productos</h2>
-      <div className="products">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} onCart={addToCart} />
-        ))}
-        {products.length === 0 && !error ? (
-          <p className="empty">No hay productos que mostrar.</p>
-        ) : null}
-      </div>
+      <section className="catalog-section">
+        <h2 className="section-title">Productos</h2>
+        <div className="products">
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} onCart={addToCart} />
+          ))}
+          {products.length === 0 && !error ? (
+            <p className="empty">No hay productos que mostrar.</p>
+          ) : null}
+        </div>
+      </section>
     </div>
   );
 }
