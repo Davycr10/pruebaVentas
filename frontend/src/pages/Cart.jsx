@@ -86,20 +86,27 @@ export default function Cart() {
             <tbody>
               {items.map((item) => (
                 <tr key={item.id}>
-                  <td>{item.name}</td>
+                  <td>
+                    <div className="cart-product">
+                      {item.image_url && <img src={item.image_url} alt={item.name} />}
+                      <span>{item.name}</span>
+                    </div>
+                  </td>
                   <td>${Number(item.price).toFixed(2)}</td>
                   <td>
-                    <button
-                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                      disabled={item.quantity <= 1}
-                    >
-                      −
-                    </button>
-                    <span>{item.quantity}</span>
-                    <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
-                    <button className="link-btn" onClick={() => removeItem(item.id)}>
-                      Quitar
-                    </button>
+                    <div className="cart-qty">
+                      <button
+                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                        disabled={item.quantity <= 1}
+                      >
+                        −
+                      </button>
+                      <span>{item.quantity}</span>
+                      <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
+                      <button className="link-btn" onClick={() => removeItem(item.id)}>
+                        Quitar
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -115,8 +122,10 @@ export default function Cart() {
               placeholder="Calle Falsa 123, Ciudad de México"
             />
           </label>
-          <p className="total">Total: ${total.toFixed(2)}</p>
-          <button onClick={checkout}>Confirmar compra</button>
+          <div className="cart-total-box">
+            <span className="total">Total: ${total.toFixed(2)}</span>
+            <button onClick={checkout}>Confirmar compra</button>
+          </div>
         </>
       )}
     </div>

@@ -10,7 +10,6 @@ export default function MiniCart() {
   const location = useLocation();
   const [items, setItems] = useState([]);
   const [error, setError] = useState("");
-  const [shippingAddress, setShippingAddress] = useState("");
 
   const load = async () => {
     try {
@@ -44,19 +43,6 @@ export default function MiniCart() {
     }
   };
 
-  const checkout = async () => {
-    setError("");
-    try {
-      await request("POST", "/cart/checkout", {
-        token,
-        body: { shipping_address: shippingAddress.trim() || null },
-      });
-      navigate("/orders");
-    } catch (err) {
-      setError(err.message);
-    }
-  };
-
   const total = items.reduce((sum, item) => sum + Number(item.price) * item.quantity, 0);
 
   if (!user) return null;
@@ -75,6 +61,7 @@ export default function MiniCart() {
         {items.length === 0 ? <p className="mini-cart-empty">Carro vacío</p> : null}
         {items.map((item) => (
           <div key={item.id} className="mini-cart-item">
+            {item.image_url && <img src={item.image_url} alt={item.name} />}
             <span className="name">{item.name}</span>
             <span className="price">${Number(item.price).toFixed(2)}</span>
             <div className="mini-cart-qty">
@@ -95,18 +82,8 @@ export default function MiniCart() {
       </div>
       {items.length > 0 && (
         <div className="mini-cart-footer">
-          <label className="shipping-input">
-            Dirección de entrega
-            <input
-              type="text"
-              aria-label="Dirección de entrega del pedido"
-              value={shippingAddress}
-              onChange={(e) => setShippingAddress(e.target.value)}
-              placeholder="Opcional"
-            />
-          </label>
           <p className="total">Total: ${total.toFixed(2)}</p>
-          <button onClick={checkout}>Confirmar compra</button>
+          <button onClick={() => navigate("/cart")}>Ver carro</button>
         </div>
       )}
     </aside>

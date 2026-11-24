@@ -194,21 +194,38 @@ export default function AdminProducts() {
       <div className="products">
         {products.map((product) => (
           <div key={product.id} className="product-card">
-            <h3>{product.name}</h3>
-            {product.category && <span className="chip-category">{product.category}</span>}
-            <p className="desc">{product.description || "Sin descripción"}</p>
-            <div className="stock-row">
-              <button onClick={() => adjustStock(product.id, -1)} disabled={busyStock[product.id]}>
-                −
-              </button>
-              <span>Stock: {product.stock}</span>
-              <button onClick={() => adjustStock(product.id, 1)} disabled={busyStock[product.id]}>
-                +
-              </button>
-            </div>
-            <div className="actions">
-              <button onClick={() => startEdit(product)}>Editar</button>
-              <button onClick={() => remove(product.id)}>Eliminar</button>
+            {product.image_url && (
+              <div className="product-card-image">
+                <img src={product.image_url} alt={product.name} />
+              </div>
+            )}
+            <div className="product-card-body">
+              <h3 className="product-card-title">{product.name}</h3>
+              {product.category && (
+                <span className="product-card-category">{product.category}</span>
+              )}
+              <p className="product-card-desc">{product.description || "Sin descripción"}</p>
+              <span
+                className={`stock-tag stock-tag-${product.stock > 0 ? "ok" : "none"}`}
+              >
+                Stock: {product.stock}
+              </span>
+              <div className="admin-actions">
+                <button
+                  onClick={() => adjustStock(product.id, -1)}
+                  disabled={busyStock[product.id]}
+                >
+                  −
+                </button>
+                <button
+                  onClick={() => adjustStock(product.id, 1)}
+                  disabled={busyStock[product.id]}
+                >
+                  +
+                </button>
+                <button onClick={() => startEdit(product)}>Editar</button>
+                <button onClick={() => remove(product.id)}>Eliminar</button>
+              </div>
             </div>
           </div>
         ))}

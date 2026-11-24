@@ -5,19 +5,20 @@ import { useAuth } from "../AuthContext.jsx";
 import { bumpCartVersion } from "../cartStore.js";
 import ProductCard from "../components/ProductCard.jsx";
 
-export default function Catalog() {
+export default function Catalog({ searchQuery }) {
   const { token } = useAuth();
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [bestSellers, setBestSellers] = useState([]);
-  const [query, setQuery] = useState("");
   const [category, setCategory] = useState("");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [sort, setSort] = useState("id");
   const [error, setError] = useState("");
   const [cartError, setCartError] = useState("");
+
+  const query = searchQuery;
 
   const loadProducts = async () => {
     try {
@@ -74,16 +75,7 @@ export default function Catalog() {
 
   return (
     <div>
-      <h1>Catálogo de productos</h1>
       <div className="catalog-filters">
-        <input
-          type="search"
-          className="search"
-          aria-label="Buscar productos"
-          placeholder="Buscar productos..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
         <select
           className="sort-select"
           aria-label="Ordenar"
@@ -124,7 +116,10 @@ export default function Catalog() {
       </div>
       {categories.length > 0 && (
         <div className="category-chips" role="group" aria-label="Filtrar por categoría">
-          <button className={category === "" ? "chip active" : "chip"} onClick={() => setCategory("")}>
+          <button
+            className={category === "" ? "chip active" : "chip"}
+            onClick={() => setCategory("")}
+          >
             Todas
           </button>
           {categories.map((c) => (
@@ -150,7 +145,7 @@ export default function Catalog() {
       )}
       {bestSellers.length > 0 && (
         <>
-          <h2>Destacados (más vendidos)</h2>
+          <h2 className="section-title">Destacados</h2>
           <div className="products">
             {bestSellers.map((product) => (
               <ProductCard key={product.id} product={product} onCart={addToCart} />
@@ -158,12 +153,14 @@ export default function Catalog() {
           </div>
         </>
       )}
-      <h2>Productos</h2>
+      <h2 className="section-title">Productos</h2>
       <div className="products">
         {products.map((product) => (
           <ProductCard key={product.id} product={product} onCart={addToCart} />
         ))}
-        {products.length === 0 && !error ? <p className="empty">No hay productos que mostrar.</p> : null}
+        {products.length === 0 && !error ? (
+          <p className="empty">No hay productos que mostrar.</p>
+        ) : null}
       </div>
     </div>
   );

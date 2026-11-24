@@ -26,6 +26,7 @@ export default function App() {
   const isAdmin = user && user.role === "admin";
   const [updateInfo, setUpdateInfo] = useState(null);
   const [downloadError, setDownloadError] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     document.body.dataset.theme = currentTheme();
@@ -89,10 +90,10 @@ export default function App() {
           </button>
         </div>
       )}
-      <Navbar />
+      <Navbar searchQuery={searchQuery} onSearchChange={setSearchQuery} />
       <main>
         <Routes>
-          <Route path="/" element={guard(<Catalog />)} />
+          <Route path="/" element={guard(<Catalog searchQuery={searchQuery} />)} />
           <Route path="/product/:id" element={guard(<ProductDetail />)} />
           <Route path="/cart" element={guard(<Cart />)} />
           <Route path="/orders" element={guard(<Orders />)} />

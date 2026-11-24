@@ -130,16 +130,18 @@ export default function ProductDetail() {
           <div className="detail-price">${Number(product.price).toFixed(2)}</div>
           <div className="detail-meta">
             {product.category && <span className="chip-category">{product.category}</span>}
-            <span className={product.stock > 0 ? "stock ok" : "stock low"}>
-              Stock: {product.stock}
+            <span
+              className={`stock-tag stock-tag-${product.stock > 0 ? "ok" : "none"}`}
+            >
+              {product.stock > 0 ? `Disponible: ${product.stock}` : "Sin stock"}
             </span>
           </div>
           <p className="desc">{product.description || "Sin descripción"}</p>
           <div className="actions">
-            <button className="buy-now" onClick={buyNow}>
+            <button className="btn-buy" onClick={buyNow} disabled={product.stock <= 0}>
               Comprar ahora
             </button>
-            <button onClick={addToCart} disabled={adding}>
+            <button className="btn-outline" onClick={addToCart} disabled={adding}>
               Agregar al carro
             </button>
             {message && <p className="success">{message}</p>}
