@@ -1,11 +1,19 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../AuthContext.jsx";
 import { useCartCount } from "./useCartCount.js";
+import { currentTheme, nextTheme, THEME_EMOJI, THEME_LABELS } from "../theme.js";
 
 export default function Navbar() {
   const { user, logout } = useAuth();
   const cartCount = useCartCount();
   const isAdmin = user && user.role === "admin";
+  const [theme, setTheme] = useState(currentTheme());
+
+  const onTheme = () => {
+    const next = nextTheme();
+    setTheme(next);
+  };
 
   return (
     <header className="navbar">
@@ -24,6 +32,14 @@ export default function Navbar() {
           </>
         )}
       </nav>
+      <button
+        className="theme-toggle"
+        title={`Tema: ${THEME_LABELS[theme]}`}
+        aria-label={`Cambiar tema (actual: ${THEME_LABELS[theme]})`}
+        onClick={onTheme}
+      >
+        {THEME_EMOJI[theme]} {THEME_LABELS[theme]}
+      </button>
       {user && (
         <div className="user">
           <span>Hola, {user.username}</span>

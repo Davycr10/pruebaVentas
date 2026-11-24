@@ -24,3 +24,11 @@ export async function request(method, path, { body, token } = {}) {
   }
   return data;
 }
+
+export async function forgotPassword(login) {
+  return request("POST", "/auth/forgot-password", { body: { login } });
+}
+
+export async function resetPassword(token, password) {
+  return request("POST", "/auth/reset-password", { body: { token, password } });
+}

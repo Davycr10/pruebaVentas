@@ -16,6 +16,8 @@ class User(Base):
     password_hash = Column(String(255), nullable=False)
     role = Column(String(20), default="user", nullable=False)
     created_at = Column(DateTime(timezone=True), default=func.now())
+    password_reset_token = Column(String(64), nullable=True, index=True)
+    password_reset_expires_at = Column(DateTime, nullable=True)
 
 
 class Product(Base):

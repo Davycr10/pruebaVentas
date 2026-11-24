@@ -48,6 +48,11 @@ def run_migrations() -> None:
                 """
             )
         )
+        users_columns = {row[1] for row in conn.execute(text("PRAGMA table_info(users)"))}
+        if "password_reset_token" not in users_columns:
+            conn.execute(text("ALTER TABLE users ADD COLUMN password_reset_token VARCHAR(64)"))
+        if "password_reset_expires_at" not in users_columns:
+            conn.execute(text("ALTER TABLE users ADD COLUMN password_reset_expires_at DATETIME"))
         conn.commit()
 
 

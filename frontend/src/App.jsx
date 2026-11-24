@@ -8,21 +8,28 @@ import AdminProducts from "./pages/AdminProducts.jsx";
 import Cart from "./pages/Cart.jsx";
 import Catalog from "./pages/Catalog.jsx";
 import FAQ from "./pages/FAQ.jsx";
+import ForgotPassword from "./pages/ForgotPassword.jsx";
 import Login from "./pages/Login.jsx";
 import Navbar from "./components/Navbar.jsx";
 import Orders from "./pages/Orders.jsx";
 import ProductDetail from "./pages/ProductDetail.jsx";
 import Register from "./pages/Register.jsx";
+import ResetPassword from "./pages/ResetPassword.jsx";
 import Historial from "./pages/Historial.jsx";
 import MiniCart from "./components/MiniCart.jsx";
 import Footer from "./components/Footer.jsx";
 import { APP_VERSION } from "./appVersion.js";
+import { currentTheme } from "./theme.js";
 
 export default function App() {
   const { user, loading } = useAuth();
   const isAdmin = user && user.role === "admin";
   const [updateInfo, setUpdateInfo] = useState(null);
   const [downloadError, setDownloadError] = useState("");
+
+  useEffect(() => {
+    document.body.dataset.theme = currentTheme();
+  }, []);
 
   useEffect(() => {
     fetch("/app/version")
@@ -106,6 +113,8 @@ export default function App() {
           <Route path="/faq" element={guard(<FAQ />)} />
           <Route path="/login" element={user ? <Navigate to="/" replace /> : <Login />} />
           <Route path="/register" element={user ? <Navigate to="/" replace /> : <Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
         </Routes>
       </main>
       <MiniCart />

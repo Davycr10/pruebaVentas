@@ -56,6 +56,9 @@ export default function Login() {
         Iniciar sesión
       </button>
       <p>
+        ¿Olvidaste tu contraseña? <Link to="/forgot-password">Restablece tu contraseña</Link>
+      </p>
+      <p>
         ¿No tienes cuenta? <Link to="/register">Regístrate aquí</Link>
       </p>
     </form>

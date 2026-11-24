@@ -16,3 +16,11 @@ def _load_or_create_secret() -> str:
 
 
 SECRET_KEY = os.environ.get("APP_SECRET_KEY") or _load_or_create_secret()
+
+# Configuración SMTP para enviar códigos de restablecimiento de contraseña
+# (Gmail: usa una "App password" de tu cuenta de Google).
+SMTP_HOST = "smtp.gmail.com"
+SMTP_PORT = 587
+SMTP_FROM = os.environ.get("SMTP_FROM") or None
+SMTP_USER = os.environ.get("SMTP_USER") or None
+SMTP_PASSWORD = os.environ.get("SMTP_PASSWORD") or None
